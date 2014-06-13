@@ -1,0 +1,418 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D86F3F6194B4531005EBC10 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D86F3F5194B4531005EBC10 /* main.swift */; };
+		4D86F3F8194B4531005EBC10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D86F3F7194B4531005EBC10 /* ViewController.swift */; };
+		4D86F3FA194B4531005EBC10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D86F3F9194B4531005EBC10 /* AppDelegate.swift */; };
+		4D86F3FC194B4531005EBC10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D86F3FB194B4531005EBC10 /* Images.xcassets */; };
+		4D86F3FF194B4531005EBC10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D86F3FD194B4531005EBC10 /* Main.storyboard */; };
+		4D86F40B194B4531005EBC10 /* SayCheeseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D86F40A194B4531005EBC10 /* SayCheeseTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4D86F405194B4531005EBC10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D86F3E8194B4531005EBC10 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D86F3EF194B4531005EBC10;
+			remoteInfo = SayCheese;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4D86F3F0194B4531005EBC10 /* SayCheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SayCheese.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D86F3F4194B4531005EBC10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D86F3F5194B4531005EBC10 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		4D86F3F7194B4531005EBC10 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4D86F3F9194B4531005EBC10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4D86F3FB194B4531005EBC10 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4D86F3FE194B4531005EBC10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4D86F404194B4531005EBC10 /* SayCheeseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SayCheeseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D86F409194B4531005EBC10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D86F40A194B4531005EBC10 /* SayCheeseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SayCheeseTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4D86F3ED194B4531005EBC10 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D86F401194B4531005EBC10 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4D86F3E7194B4531005EBC10 = {
+			isa = PBXGroup;
+			children = (
+				4D86F3F2194B4531005EBC10 /* SayCheese */,
+				4D86F407194B4531005EBC10 /* SayCheeseTests */,
+				4D86F3F1194B4531005EBC10 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4D86F3F1194B4531005EBC10 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D86F3F0194B4531005EBC10 /* SayCheese.app */,
+				4D86F404194B4531005EBC10 /* SayCheeseTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4D86F3F2194B4531005EBC10 /* SayCheese */ = {
+			isa = PBXGroup;
+			children = (
+				4D86F3F7194B4531005EBC10 /* ViewController.swift */,
+				4D86F3F9194B4531005EBC10 /* AppDelegate.swift */,
+				4D86F3FB194B4531005EBC10 /* Images.xcassets */,
+				4D86F3FD194B4531005EBC10 /* Main.storyboard */,
+				4D86F3F3194B4531005EBC10 /* Supporting Files */,
+			);
+			path = SayCheese;
+			sourceTree = "<group>";
+		};
+		4D86F3F3194B4531005EBC10 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D86F3F4194B4531005EBC10 /* Info.plist */,
+				4D86F3F5194B4531005EBC10 /* main.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4D86F407194B4531005EBC10 /* SayCheeseTests */ = {
+			isa = PBXGroup;
+			children = (
+				4D86F40A194B4531005EBC10 /* SayCheeseTests.swift */,
+				4D86F408194B4531005EBC10 /* Supporting Files */,
+			);
+			path = SayCheeseTests;
+			sourceTree = "<group>";
+		};
+		4D86F408194B4531005EBC10 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D86F409194B4531005EBC10 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4D86F3EF194B4531005EBC10 /* SayCheese */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D86F40E194B4531005EBC10 /* Build configuration list for PBXNativeTarget "SayCheese" */;
+			buildPhases = (
+				4D86F3EC194B4531005EBC10 /* Sources */,
+				4D86F3ED194B4531005EBC10 /* Frameworks */,
+				4D86F3EE194B4531005EBC10 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SayCheese;
+			productName = SayCheese;
+			productReference = 4D86F3F0194B4531005EBC10 /* SayCheese.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4D86F403194B4531005EBC10 /* SayCheeseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D86F411194B4531005EBC10 /* Build configuration list for PBXNativeTarget "SayCheeseTests" */;
+			buildPhases = (
+				4D86F400194B4531005EBC10 /* Sources */,
+				4D86F401194B4531005EBC10 /* Frameworks */,
+				4D86F402194B4531005EBC10 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D86F406194B4531005EBC10 /* PBXTargetDependency */,
+			);
+			name = SayCheeseTests;
+			productName = SayCheeseTests;
+			productReference = 4D86F404194B4531005EBC10 /* SayCheeseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4D86F3E8194B4531005EBC10 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Jorge Martín Espinosa";
+				TargetAttributes = {
+					4D86F3EF194B4531005EBC10 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					4D86F403194B4531005EBC10 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 4D86F3EF194B4531005EBC10;
+					};
+				};
+			};
+			buildConfigurationList = 4D86F3EB194B4531005EBC10 /* Build configuration list for PBXProject "SayCheese" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4D86F3E7194B4531005EBC10;
+			productRefGroup = 4D86F3F1194B4531005EBC10 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4D86F3EF194B4531005EBC10 /* SayCheese */,
+				4D86F403194B4531005EBC10 /* SayCheeseTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4D86F3EE194B4531005EBC10 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D86F3FC194B4531005EBC10 /* Images.xcassets in Resources */,
+				4D86F3FF194B4531005EBC10 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D86F402194B4531005EBC10 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4D86F3EC194B4531005EBC10 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D86F3FA194B4531005EBC10 /* AppDelegate.swift in Sources */,
+				4D86F3F8194B4531005EBC10 /* ViewController.swift in Sources */,
+				4D86F3F6194B4531005EBC10 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D86F400194B4531005EBC10 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D86F40B194B4531005EBC10 /* SayCheeseTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4D86F406194B4531005EBC10 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D86F3EF194B4531005EBC10 /* SayCheese */;
+			targetProxy = 4D86F405194B4531005EBC10 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4D86F3FD194B4531005EBC10 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D86F3FE194B4531005EBC10 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4D86F40C194B4531005EBC10 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4D86F40D194B4531005EBC10 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4D86F40F194B4531005EBC10 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SayCheese/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4D86F410194B4531005EBC10 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SayCheese/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4D86F412194B4531005EBC10 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SayCheese.app/Contents/MacOS/SayCheese";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SayCheeseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		4D86F413194B4531005EBC10 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SayCheese.app/Contents/MacOS/SayCheese";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SayCheeseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4D86F3EB194B4531005EBC10 /* Build configuration list for PBXProject "SayCheese" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D86F40C194B4531005EBC10 /* Debug */,
+				4D86F40D194B4531005EBC10 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D86F40E194B4531005EBC10 /* Build configuration list for PBXNativeTarget "SayCheese" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D86F40F194B4531005EBC10 /* Debug */,
+				4D86F410194B4531005EBC10 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4D86F411194B4531005EBC10 /* Build configuration list for PBXNativeTarget "SayCheeseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D86F412194B4531005EBC10 /* Debug */,
+				4D86F413194B4531005EBC10 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4D86F3E8194B4531005EBC10 /* Project object */;
+}
