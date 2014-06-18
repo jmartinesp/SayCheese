@@ -1,0 +1,1 @@
+../../ImgurSession/ImgurSession/Models/IMGConversation.h

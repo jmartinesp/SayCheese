@@ -1,0 +1,8 @@
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#endif
+
+#import "Pods-SayCheese-environment.h"
+#ifdef __OBJC__
+  #import <AFNetworking/AFNetworking.h>
+#endif /* __OBJC__*/

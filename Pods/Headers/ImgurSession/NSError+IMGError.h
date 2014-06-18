@@ -1,0 +1,1 @@
+../../ImgurSession/ImgurSession/NSError+IMGError.h

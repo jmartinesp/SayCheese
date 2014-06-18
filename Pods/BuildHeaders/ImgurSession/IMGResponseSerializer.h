@@ -1,0 +1,1 @@
+../../ImgurSession/ImgurSession/IMGResponseSerializer.h
