@@ -28,7 +28,7 @@ Also, I wanted to write an app in *Swift*.
 
 #Do you have a binary?
 
-But of course! You can download the last version from [here](http://arasthel.com/files/SayCheese.app.zip).
+But of course! You can download the latest version from [here](http://arasthel.com/files/SayCheese.app.zip).
 
 #How does it work?
 
@@ -37,7 +37,7 @@ The app consist of a few main classes:
 * **BackgroundApplication** controls the hotkey pressing, it's the core of the app.
 * **ScreenshotWindow** is launched by *BackgroundApplication* when you take a screenshot. It contains a **CroppingNSImageView** instance, which allows you to select the region to upload and a **SelectActionView** which lets you decide what to do with that selection.
 * **ImgurClient** controls the session and handles uploading of screenshots.
-* **PreferencesWindowController** lets you change the hotkeys with an **HotkeyTextField** wether you want the app to start at login and the Imgur account.
+* **PreferencesWindowController** lets you change the hotkeys with an **HotkeyTextField**, whether you want the app to start at login or not, and the Imgur account.
 
 #Can I contribute?
 
