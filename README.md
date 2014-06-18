@@ -26,6 +26,10 @@ Also, I wanted to write an app in *Swift*.
   * Anonymously.
   * Using your account. This way you can delete them whenever you want.
 
+#Do you have a binary?
+
+But of course! You can download the last version from [here](http://arasthel.com/files/SayCheese.app.zip).
+
 #How does it work?
 
 The app consist of a few main classes:
