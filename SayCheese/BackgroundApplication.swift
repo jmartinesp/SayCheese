@@ -24,9 +24,6 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
     init() {
         super.init()
         
-        let appDomain = NSBundle.mainBundle().bundleIdentifier
-        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
-        
         // Configure statusbar
         var statusBar = NSStatusBar.systemStatusBar()
         statusItem = statusBar.statusItemWithLength(CGFloat(NSVariableStatusItemLength))
