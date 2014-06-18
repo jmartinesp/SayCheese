@@ -10,7 +10,7 @@ import Foundation
 
 class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
     
-    var statusItem: NSStatusItem!
+    var statusItem: NSStatusItem?
     var screenshotWindow: ScreenshotWindow?
     var settingsController: PreferencesWindowController?
     var showing = false
@@ -27,14 +27,14 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
         // Configure statusbar
         var statusBar = NSStatusBar.systemStatusBar()
         statusItem = statusBar.statusItemWithLength(CGFloat(NSVariableStatusItemLength))
-        statusItem.image = NSImage(named: "menubar_icon")
-        statusItem.toolTip = "SayCheese"
-        statusItem.highlightMode = true
+        statusItem!.image = NSImage(named: "menubar_icon")
+        statusItem!.toolTip = "SayCheese"
+        statusItem!.highlightMode = true
         
         // Add menu to statusbar icon
         let menu = NSMenu()
         menu.autoenablesItems = false
-        self.statusItem.menu = menu
+        statusItem!.menu = menu
         
         // Add take pic item
         var takePicItem = menu.addItemWithTitle("Take screenshot", action: "takePicture:", keyEquivalent:"<")
