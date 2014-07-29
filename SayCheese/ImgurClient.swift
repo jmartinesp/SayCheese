@@ -108,7 +108,11 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
             let date = NSDate()
             let formatter = NSDateFormatter()
             formatter.dateFormat = "dd-MM-yyyy hh:mm:ss"
-            IMGImageRequest.uploadImageWithData(image.TIFFRepresentation, title: "Screenshot - \(formatter.stringFromDate(date))", success: imageUploadedCallback, progress: nil, failure: nil)
+            var imageData = image.TIFFRepresentation;
+            let imageRepresentation = NSBitmapImageRep(data: imageData);
+            let imageProps = [ NSImageCompressionFactor: 1.0 ];
+            imageData = imageRepresentation.representationUsingType(NSBitmapImageFileType.NSJPEGFileType, properties: imageProps);
+            IMGImageRequest.uploadImageWithData(imageData, title: "Screenshot - \(formatter.stringFromDate(date))", success: imageUploadedCallback, progress: nil, failure: nil)
         }
         
         if hasAccount() == false {
