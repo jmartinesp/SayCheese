@@ -21,12 +21,12 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
     var imgurClient: ImgurClient?
     
     
-    init() {
+    override init() {
         super.init()
         
         // Configure statusbar
         var statusBar = NSStatusBar.systemStatusBar()
-        statusItem = statusBar.statusItemWithLength(CGFloat(NSVariableStatusItemLength))
+        statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
         statusItem!.image = NSImage(named: "menubar_icon")
         statusItem!.toolTip = "SayCheese"
         statusItem!.highlightMode = true
@@ -38,7 +38,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
         
         // Add take pic item
         var takePicItem = menu.addItemWithTitle("Take screenshot", action: "takePicture:", keyEquivalent:"<")
-        takePicItem.keyEquivalentModifierMask = (Int(NSEventModifierFlags.CommandKeyMask.value) | Int(NSEventModifierFlags.ShiftKeyMask.value))
+        takePicItem.keyEquivalentModifierMask = (Int(NSEventModifierFlags.CommandKeyMask.toRaw()) | Int(NSEventModifierFlags.ShiftKeyMask.toRaw()))
         takePicItem.target = self
         
         var settingsItem = menu.addItemWithTitle("Settings", action: "openSettings:", keyEquivalent:"")
@@ -100,8 +100,8 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
     
     
     func openSettings(sender: AnyObject?) {
-        if !settingsController? {
-            settingsController = PreferencesWindowController()
+        if settingsController? == nil {
+            settingsController = PreferencesWindowController(windowNibName: "PreferencesWindowController")
             settingsController!.imgurClient = imgurClient
             imgurClient!.authenticationDoneDelegate = settingsController
         }
@@ -116,7 +116,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
     func _loadDefaults(settingsController: PreferencesWindowController?) {
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        if defaults.objectForKey("keyCode")? && defaults.objectForKey("flags")? {
+        if (defaults.objectForKey("keyCode")? != nil && defaults.objectForKey("flags")? != nil) {
             var intKeyCode = defaults.integerForKey("keyCode")
             var flagsData = defaults.integerForKey("flags")
             
@@ -129,7 +129,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
             flags = NSEventModifierFlags(1179914)
         }
         
-        if settingsController? {
+        if settingsController? != nil {
             settingsController!.hotKeyTextField.setTextWithKeyCode(Int(keyCode!), andFlags: flags!.toRaw(), eventType: nil)
         }
 
@@ -148,8 +148,8 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
         defaults.synchronize()
     }
     
-    func quitApp(sender: AnyObject?) {
-        NSApp.terminate(sender)
+    func quitApp(sender: AnyObject!) {
+        NSApplication.sharedApplication().terminate(sender)
     }
     
     func quitScreenWindow(event: NSEvent!) -> NSEvent {
@@ -181,7 +181,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
         
         let windowRect = NSMakeRect(0, 0, NSScreen.mainScreen()!.frame.size.width, NSScreen.mainScreen()!.frame.size.height)
         
-        if !screenshotWindow {
+        if screenshotWindow == nil {
             screenshotWindow = ScreenshotWindow(window: NSWindow(contentRect: windowRect, styleMask: NSBorderlessWindowMask, backing: NSBackingStoreType.Buffered, defer: false))
             screenshotWindow!.imgurClient = imgurClient
         }

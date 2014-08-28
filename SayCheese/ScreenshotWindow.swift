@@ -20,10 +20,14 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
     var selectActionView: SelectActionViewController?
     var confirmAnonymous: ConfirmAnonymousUploadPanelController?
     
-    init(window: NSWindow!) {
+    override init(window: NSWindow!) {
         super.init(window: window)
         window.delegate = self
         window.releasedWhenClosed = false
+    }
+
+    required init(coder: NSCoder!) {
+        super.init(coder: coder)
     }
     
     override func showWindow(sender: AnyObject!) {
@@ -118,12 +122,12 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
             let data = bitmapRepresentation.representationUsingType(fileType, properties: nil)
             
             // Save data to selected file
-            data.writeToFile(savePanel!.URL.path, atomically: false)
+            data.writeToFile(savePanel!.URL.path!, atomically: false)
         }
     }
     
     func dropMenuChange(sender: NSPopUpButton) {
-        let extensions: String[] = [sender.selectedItem.title]
+        let extensions: [String] = [sender.selectedItem.title]
         savePanel!.allowedFileTypes = extensions
     }
     
@@ -164,7 +168,7 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
     }
     
     func closeWindow() {
-        if selectActionView? {
+        if selectActionView? != nil {
             selectActionView!.view.removeFromSuperview()
         }
         close()

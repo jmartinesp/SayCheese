@@ -10,17 +10,21 @@ import Foundation
 
 class ConfirmAnonymousUploadPanelController: NSWindowController, NSWindowDelegate {
     
-    @IBOutlet var dontShowAgainCheckBox : NSButton
+    @IBOutlet var dontShowAgainCheckBox : NSButton!
     
     var selectActionView: SelectActionViewController?
     
-    init()  {
+    override init()  {
         super.init()
     }
     
-    init(window: NSWindow!) {
+    override init(window: NSWindow!) {
         super.init(window: window)
-        NSBundle.loadNibNamed("ConfirmAnonymousUploadPanel", owner: self)
+        NSBundle.mainBundle().loadNibNamed("ConfirmAnonymousUploadPanel", owner: self, topLevelObjects: nil)
+    }
+
+    required init(coder: NSCoder!) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     @IBAction func uploadIt(sender: NSButton?) {
