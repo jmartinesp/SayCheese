@@ -17,13 +17,13 @@ class CroppingNSView: NSView {
     var screenshotDelegate: ScreenshotDelegate?
     var canDrag: Bool?
     
-    init(frame: NSRect) {
+    override init(frame: NSRect) {
         super.init(frame: frame)
         
         clickedPoint = nil
         
         self.layer = CALayer()
-        self.layer.frame = frame
+        self.layer!.frame = frame
         self.wantsLayer = true
         
         shapeLayer = CAShapeLayer()
@@ -35,10 +35,14 @@ class CroppingNSView: NSView {
         canDrag = true
         
     }
+
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func setImageForBackground(newImage: NSImage, withSize size: NSSize) {
         image = newImage
-        self.layer.backgroundColor = NSColor(patternImage: image!.hh_imageTintedWithColor(NSColor(red: 0, green: 0, blue: 0, alpha: 1.0))).CGColor
+        self.layer!.backgroundColor = NSColor(patternImage: image!.hh_imageTintedWithColor(NSColor(red: 0, green: 0, blue: 0, alpha: 1.0))).CGColor
     }
 
     override func drawRect(dirtyRect: NSRect) {
@@ -48,7 +52,7 @@ class CroppingNSView: NSView {
     override func mouseDown(theEvent: NSEvent!) {
         if canDrag!  == true {
             clickedPoint = convertPoint(theEvent.locationInWindow, fromView: nil)
-            self.layer.addSublayer(shapeLayer!)
+            self.layer!.addSublayer(shapeLayer!)
         }
     }
     
@@ -56,7 +60,7 @@ class CroppingNSView: NSView {
         
         canDrag = false
         
-        if screenshotDelegate? {
+        if (screenshotDelegate? != nil) {
             
             let point = convertPoint(theEvent.locationInWindow, fromView: nil)
             
@@ -66,7 +70,7 @@ class CroppingNSView: NSView {
                 fabs(point.y - clickedPoint!.y)
             )
             
-            if image? {
+            if (image? != nil) {
                 let croppedImage = NSImage(size: NSSizeFromCGSize(CGSize(width: selectedRect.width, height: selectedRect.height)))
                 croppedImage.lockFocus()
                 image!.drawAtPoint(NSZeroPoint, fromRect: selectedRect, operation: .CompositeCopy, fraction: 1.0)
@@ -95,6 +99,6 @@ class CroppingNSView: NSView {
         image = nil
         shapeLayer!.path = nil
         shapeLayer!.removeFromSuperlayer()
-        layer.backgroundColor = NSColor.clearColor().CGColor
+        layer!.backgroundColor = NSColor.clearColor().CGColor
     }
 }

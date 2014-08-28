@@ -21,7 +21,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     
     var imgurSession: IMGSession?
     
-    init() {
+    override init() {
         super.init()
         imgurSession = IMGSession.authenticatedSessionWithClientID(imgurClientId, secret: imgurClientSecret, authType: IMGAuthType.PinAuth, withDelegate: self)
     }
@@ -49,7 +49,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     
     func imgurSessionNeedsExternalWebview(url: NSURL, completion: () -> Void) {
         NSWorkspace.sharedWorkspace().openURL(url)
-        if authenticationDoneDelegate? {
+        if (authenticationDoneDelegate? != nil) {
             authenticationDoneDelegate!.activatePinButton()
         }
     }
@@ -65,7 +65,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
         if state == IMGAuthState.Authenticated {
             defaults.setObject(imgurSession!.refreshToken as NSString, forKey: "imgur_token")
             defaults.synchronize()
-            if authenticationDoneDelegate? {
+            if (authenticationDoneDelegate? != nil) {
                 authenticationDoneDelegate!.authenticationInImgurSuccessful()
             }
             isLoggedIn = true
@@ -77,7 +77,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     
     func imgurSessionTokenRefreshed() {
         // If we need to upload anything, do it
-        if doIfAuthenticated? {
+        if (doIfAuthenticated? != nil) {
             doIfAuthenticated!()
             doIfAuthenticated = nil
         }
@@ -101,7 +101,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     func uploadImage(let image: NSImage) {
         
         let imageUploadedCallback = { (uploadedImage: IMGImage?) -> Void in
-            self.notifyImageUploaded(uploadedImage!.url.absoluteString)
+            self.notifyImageUploaded(uploadedImage!.url.absoluteString!)
         }
         
         var uploadIfOk = { () -> Void in
@@ -182,8 +182,25 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     }
     
     func userNotificationCenter(center: NSUserNotificationCenter!, didActivateNotification notification: NSUserNotification!) {
-        let url = NSURL.URLWithString(notification.userInfo.valueForKey("url") as String)
+        //let url = NSURL.URLWithString(notification.userInfo.indexForKey("url") as String))
+        
+        let url = NSURL.URLWithString(notification.valueForKey("url") as String)
+        
+        let urlTemp = notification.valueForKey("url") as String
+
+        println("URL: \(urlTemp)")
+        
         NSWorkspace.sharedWorkspace().openURL(url)
+    }
+    
+    func signOut(){
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        defaults.removeObjectForKey("imgur_token")
+        
+        self.isLoggedIn = false
+        
     }
 
 

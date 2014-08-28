@@ -20,11 +20,11 @@ class HotkeyTextField: NSTextField {
     
     var firstOpening = true
     
-    init(coder: NSCoder!) {
+    required init(coder: NSCoder!) {
         super.init(coder: coder)
     }
 
-    init(frame: NSRect) {
+    override init(frame: NSRect) {
         super.init(frame: frame)
         // Initialization code here.
     }
@@ -57,11 +57,11 @@ class HotkeyTextField: NSTextField {
         
         if canEdit {
         
-            let hasModifier = (event.modifierFlags.value & (NSEventModifierFlags.CommandKeyMask.value | NSEventModifierFlags.AlternateKeyMask.value |
-                NSEventModifierFlags.ControlKeyMask.value | NSEventModifierFlags.ShiftKeyMask.value | NSEventModifierFlags.FunctionKeyMask.value)) > 0
+            let hasModifier = (event.modifierFlags.toRaw() & (NSEventModifierFlags.CommandKeyMask.toRaw() | NSEventModifierFlags.AlternateKeyMask.toRaw() |
+                NSEventModifierFlags.ControlKeyMask.toRaw() | NSEventModifierFlags.ShiftKeyMask.toRaw() | NSEventModifierFlags.FunctionKeyMask.toRaw())) > 0
             
             if hasModifier {
-                setTextWithKeyCode(Int(event.keyCode), andFlags: event.modifierFlags.value, eventType: event.type)
+                setTextWithKeyCode(Int(event.keyCode), andFlags: event.modifierFlags.toRaw(), eventType: event.type)
             }
         }
         
@@ -73,27 +73,27 @@ class HotkeyTextField: NSTextField {
         
         let modifierFlags = NSEventModifierFlags(flags)
         
-        if  modifierFlags & NSEventModifierFlags.CommandKeyMask {
+        if  (modifierFlags & NSEventModifierFlags.CommandKeyMask).toRaw() != 0 {
             resultString += "⌘+"
         }
         
-        if modifierFlags & NSEventModifierFlags.AlternateKeyMask {
+        if (modifierFlags & NSEventModifierFlags.AlternateKeyMask).toRaw() != 0 {
             resultString += "⎇+"
         }
         
-        if modifierFlags & NSEventModifierFlags.ControlKeyMask {
+        if (modifierFlags & NSEventModifierFlags.ControlKeyMask).toRaw() != 0 {
             resultString += "^+"
         }
         
-        if modifierFlags & NSEventModifierFlags.ShiftKeyMask {
+        if (modifierFlags & NSEventModifierFlags.ShiftKeyMask).toRaw() != 0 {
             resultString += "⇧+"
         }
         
-        if modifierFlags & NSEventModifierFlags.FunctionKeyMask {
+        if (modifierFlags & NSEventModifierFlags.FunctionKeyMask).toRaw() != 0 {
             resultString += "fn+"
         }
         
-        if eventType? {
+        if (eventType? != nil) {
             if eventType == NSEventType.KeyDown {
                 let char = HotKeyUtilsWrapper.getStringFromKeyCode(UInt16(keyCode))[0]
                 resultString += char
@@ -102,7 +102,7 @@ class HotkeyTextField: NSTextField {
                 window!.endEditingFor(self)
                 NSEvent.removeMonitor(monitor)
                 
-                if hotKeysDelegate? {
+                if (hotKeysDelegate? != nil) {
                     let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC));
                     dispatch_after(dispatchTime, dispatch_get_main_queue(), {
                             self.hotKeysDelegate!.changeHotKeysToKeyCode(UInt16(keyCode), flags: flags)
