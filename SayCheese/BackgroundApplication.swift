@@ -8,9 +8,10 @@
 
 import Foundation
 
-class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
+class BackgroundApplication: NSObject, ChangeHotKeysDelegate, UploadDelegate {
     
     var statusItem: NSStatusItem?
+    var deleteLastImageItem: NSMenuItem?
     var screenshotWindow: ScreenshotWindow?
     var settingsController: PreferencesWindowController?
     var showing = false
@@ -27,7 +28,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
         // Configure statusbar
         var statusBar = NSStatusBar.systemStatusBar()
         statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
-        statusItem!.image = NSImage(named: "menubar_icon")
+        statusItem!.image = NSImage(named: "menubar_icon_inactive")
         statusItem!.toolTip = "SayCheese"
         statusItem!.highlightMode = true
         
@@ -43,6 +44,10 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
         
         var settingsItem = menu.addItemWithTitle("Settings", action: "openSettings:", keyEquivalent:"")
         settingsItem.target = self
+        
+        deleteLastImageItem = menu.addItemWithTitle("Delete last image", action: "deleteLastImage", keyEquivalent: "")
+        deleteLastImageItem!.enabled = false
+        deleteLastImageItem!.target = self
         
         // Add quit app item
         var quitAppItem = menu.addItemWithTitle("Quit", action: "quitApp:", keyEquivalent:"")
@@ -88,7 +93,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
             NSApplication.sharedApplication().terminate(self)
         }
         
-        imgurClient = ImgurClient()
+        imgurClient = ImgurClient(uploadDelegate: self)
         
         let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC));
         dispatch_after(dispatchTime, dispatch_get_main_queue(), {
@@ -173,6 +178,25 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate {
         } else if event.keyCode == 53 {
             self.screenshotWindow?.close()
         }
+    }
+    
+    func uploadStarted(){
+        statusItem!.image = NSImage(named: "menubar_icon")
+    }
+    
+    func uploadFinished(){
+        statusItem!.image = NSImage(named: "menubar_icon_inactive")
+        if !deleteLastImageItem!.enabled {
+            deleteLastImageItem!.enabled = true
+        }
+    }
+    
+    func deleteLastImage(){
+        imgurClient!.deleteLastImage()
+    }
+    
+    func imageDeleted(){
+        deleteLastImageItem!.enabled = false
     }
     
     func takePicture(object: AnyObject?) {

@@ -19,11 +19,22 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     
     var authenticationDoneDelegate: ReceivedImgurAuthenticationDelegate?
     
+    var uploadDelegate: UploadDelegate?
+    
     var imgurSession: IMGSession?
+    
+    var deleteParam: String?
+    var wasScreenshotUploadedWithAccount: Bool?
     
     override init() {
         super.init()
         imgurSession = IMGSession.authenticatedSessionWithClientID(imgurClientId, secret: imgurClientSecret, authType: IMGAuthType.PinAuth, withDelegate: self)
+    }
+    
+    init(uploadDelegate: UploadDelegate) {
+        super.init()
+        imgurSession = IMGSession.authenticatedSessionWithClientID(imgurClientId, secret: imgurClientSecret, authType: IMGAuthType.PinAuth, withDelegate: self)
+        self.uploadDelegate = uploadDelegate
     }
 
     func hasAccount() -> Bool! {
@@ -101,10 +112,12 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     func uploadImage(let image: NSImage) {
         
         let imageUploadedCallback = { (uploadedImage: IMGImage?) -> Void in
-            self.notifyImageUploaded(uploadedImage!.url.absoluteString!)
+            self.notifyImageUploaded(uploadedImage!.url.absoluteString!, param: uploadedImage!.deletehash)
+            self.wasScreenshotUploadedWithAccount = self.hasAccount()
         }
         
         var uploadIfOk = { () -> Void in
+            self.uploadDelegate?.uploadStarted()
             let date = NSDate()
             let formatter = NSDateFormatter()
             formatter.dateFormat = "dd-MM-yyyy hh:mm:ss"
@@ -116,8 +129,10 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
         }
         
         if hasAccount() == false {
+            wasScreenshotUploadedWithAccount = false
             anonymouslyUploadImage(image)
         } else {
+            wasScreenshotUploadedWithAccount = true
             if isAccessTokenValid() == true {
                 uploadIfOk()
             } else {
@@ -128,12 +143,15 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
         }
     }
     
-    func notifyImageUploaded(url: String) {
+    func notifyImageUploaded(url: String, param: String) {
         // Save url in pasteboard
         let pasteboard = NSPasteboard.generalPasteboard()
         let types = [NSStringPboardType]
         pasteboard.declareTypes(types, owner: nil)
         pasteboard.setString(url, forType: NSStringPboardType)
+        
+        self.deleteParam = param
+        uploadDelegate?.uploadFinished()
         
         // Send notification
         dispatch_async(dispatch_get_main_queue(), {
@@ -145,11 +163,72 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
             let center = NSUserNotificationCenter.defaultUserNotificationCenter()
             center.delegate = self
             center.deliverNotification(notification)
+        })
+    }
+    
+    func deleteLastImage(){
+        
+        if deleteParam? != nil {
+           
+            let operationManager = AFHTTPRequestOperationManager()
+            
+            var authHeader: String
+            
+            if wasScreenshotUploadedWithAccount! {
+                authHeader = "Client-Bearer \(imgurSession!.accessToken)"
+            } else {
+                authHeader = "Client-ID \(imgurClientId)"
+            }
+            
+            println("AuthHeader: \(authHeader)")
+            
+            operationManager.requestSerializer.setValue(authHeader, forHTTPHeaderField: "Authorization")
+            
+            
+            operationManager.DELETE("https://api.imgur.com/3/image/\(deleteParam!)", parameters: nil,
+                
+                success: {(operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+                    
+                    self.notifyImageDeleted((response as NSDictionary).valueForKey("success") as Bool)
+                    
+                }, failure: {(operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                    
+                    NSLog(error.description)
+                    
             })
+
+            
+        }
+    }
+    
+    func notifyImageDeleted(success: Bool){
+        
+        var title: String
+        
+        if success {
+            title = "Image deleted successfully!"
+        } else {
+            title = "Could not delete image"
+        }
+        
+        let notification = NSUserNotification()
+        notification.title = title
+        notification.informativeText = ""
+        notification.soundName = NSUserNotificationDefaultSoundName
+        let center = NSUserNotificationCenter.defaultUserNotificationCenter()
+        center.delegate = self
+        center.deliverNotification(notification)
+        
+        if uploadDelegate? != nil {
+            uploadDelegate!.imageDeleted()
+        }
+        
+
     }
     
     
     func anonymouslyUploadImage(let image: NSImage) {
+        self.uploadDelegate?.uploadStarted()
         let date = NSDate()
         let formatter = NSDateFormatter()
         formatter.dateFormat = "dd-MM-yyyy hh:mm:ss"
@@ -168,7 +247,11 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
         }, success: {(operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
         
             let dictionary = (response as NSDictionary).valueForKey("data") as NSDictionary
-            self.notifyImageUploaded(dictionary.valueForKey("link") as String)
+            let deleteParam: String? = dictionary.valueForKey("deletehash") as String?
+            
+            println("DELETEPARAM: \(deleteParam!)")
+            
+            self.notifyImageUploaded(dictionary.valueForKey("link") as String, param: deleteParam!)
     
         }, failure: {(operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
         

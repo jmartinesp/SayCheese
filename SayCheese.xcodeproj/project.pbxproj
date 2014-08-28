@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0790DBAF19AF5790006C7C8B /* UploadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DBAE19AF5790006C7C8B /* UploadDelegate.swift */; };
 		4D1C68DE194DB9BD009BE4F1 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D1C68DD194DB9BD009BE4F1 /* Application.xib */; };
 		4D1C68E5194DD39E009BE4F1 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1C68E3194DD39E009BE4F1 /* PreferencesWindowController.swift */; };
 		4D1C68E6194DD39E009BE4F1 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D1C68E4194DD39E009BE4F1 /* PreferencesWindowController.xib */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0790DBAE19AF5790006C7C8B /* UploadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadDelegate.swift; sourceTree = "<group>"; };
 		4D02FC29194E57CA0065A527 /* libPods-SayCheese-ImgurSession.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SayCheese-ImgurSession.a"; path = "Pods/build/Debug/libPods-SayCheese-ImgurSession.a"; sourceTree = "<group>"; };
 		4D1C68DD194DB9BD009BE4F1 /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
 		4D1C68E3194DD39E009BE4F1 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				4DAB5DD9194CC4BA002F59C3 /* ScreenshotDelegate.swift */,
 				4D861618194E353A0086F315 /* ChangeHotKeysDelegate.swift */,
 				4D9125A3194E74BD00C71E56 /* ReceivedImgurAuthenticationDelegate.swift */,
+				0790DBAE19AF5790006C7C8B /* UploadDelegate.swift */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 			files = (
 				4D5781E8194EFBA400D89861 /* SelectActionViewController.swift in Sources */,
 				4D1C68EF194DDFA8009BE4F1 /* HotKeyUtilsWrapper.m in Sources */,
+				0790DBAF19AF5790006C7C8B /* UploadDelegate.swift in Sources */,
 				4D1C68E8194DDB2F009BE4F1 /* HotkeyTextField.swift in Sources */,
 				4D86F3FA194B4531005EBC10 /* AppDelegate.swift in Sources */,
 				4D1C68EC194DDE1F009BE4F1 /* HotKeyUtilities.m in Sources */,
