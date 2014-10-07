@@ -39,7 +39,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate, UploadDelegate {
         
         // Add take pic item
         var takePicItem = menu.addItemWithTitle("Take screenshot", action: "takePicture:", keyEquivalent:"<")
-        takePicItem.keyEquivalentModifierMask = (Int(NSEventModifierFlags.CommandKeyMask.toRaw()) | Int(NSEventModifierFlags.ShiftKeyMask.toRaw()))
+        takePicItem.keyEquivalentModifierMask = (Int(NSEventModifierFlags.CommandKeyMask.rawValue) | Int(NSEventModifierFlags.ShiftKeyMask.rawValue))
         takePicItem.target = self
         
         var settingsItem = menu.addItemWithTitle("Settings", action: "openSettings:", keyEquivalent:"")
@@ -135,7 +135,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate, UploadDelegate {
         }
         
         if settingsController? != nil {
-            settingsController!.hotKeyTextField.setTextWithKeyCode(Int(keyCode!), andFlags: flags!.toRaw(), eventType: nil)
+            settingsController!.hotKeyTextField.setTextWithKeyCode(Int(keyCode!), andFlags: flags!.rawValue, eventType: nil)
         }
 
     }

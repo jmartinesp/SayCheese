@@ -70,7 +70,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     }
     
     func imgurSessionAuthStateChanged(state: IMGAuthState) {
-        NSLog("State: \(state.toRaw())")
+        NSLog("State: \(state.rawValue)")
         let defaults = NSUserDefaults.standardUserDefaults()
 
         if state == IMGAuthState.Authenticated {
@@ -267,7 +267,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     func userNotificationCenter(center: NSUserNotificationCenter!, didActivateNotification notification: NSUserNotification!) {
         //let url = NSURL.URLWithString(notification.userInfo.indexForKey("url") as String))
         
-        let url = NSURL.URLWithString(notification.valueForKey("url") as String)
+        let url = NSURL(string: (notification.valueForKey("url") as String))
         
         let urlTemp = notification.valueForKey("url") as String
 
