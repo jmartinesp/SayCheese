@@ -57,11 +57,11 @@ class HotkeyTextField: NSTextField {
         
         if canEdit {
         
-            let hasModifier = (event.modifierFlags.toRaw() & (NSEventModifierFlags.CommandKeyMask.toRaw() | NSEventModifierFlags.AlternateKeyMask.toRaw() |
-                NSEventModifierFlags.ControlKeyMask.toRaw() | NSEventModifierFlags.ShiftKeyMask.toRaw() | NSEventModifierFlags.FunctionKeyMask.toRaw())) > 0
+            let hasModifier = (event.modifierFlags.rawValue & (NSEventModifierFlags.CommandKeyMask.rawValue | NSEventModifierFlags.AlternateKeyMask.rawValue |
+                NSEventModifierFlags.ControlKeyMask.rawValue | NSEventModifierFlags.ShiftKeyMask.rawValue | NSEventModifierFlags.FunctionKeyMask.rawValue)) > 0
             
             if hasModifier {
-                setTextWithKeyCode(Int(event.keyCode), andFlags: event.modifierFlags.toRaw(), eventType: event.type)
+                setTextWithKeyCode(Int(event.keyCode), andFlags: event.modifierFlags.rawValue, eventType: event.type)
             }
         }
         
@@ -73,23 +73,23 @@ class HotkeyTextField: NSTextField {
         
         let modifierFlags = NSEventModifierFlags(flags)
         
-        if  (modifierFlags & NSEventModifierFlags.CommandKeyMask).toRaw() != 0 {
+        if  (modifierFlags & NSEventModifierFlags.CommandKeyMask).rawValue != 0 {
             resultString += "⌘+"
         }
         
-        if (modifierFlags & NSEventModifierFlags.AlternateKeyMask).toRaw() != 0 {
+        if (modifierFlags & NSEventModifierFlags.AlternateKeyMask).rawValue != 0 {
             resultString += "⎇+"
         }
         
-        if (modifierFlags & NSEventModifierFlags.ControlKeyMask).toRaw() != 0 {
+        if (modifierFlags & NSEventModifierFlags.ControlKeyMask).rawValue != 0 {
             resultString += "^+"
         }
         
-        if (modifierFlags & NSEventModifierFlags.ShiftKeyMask).toRaw() != 0 {
+        if (modifierFlags & NSEventModifierFlags.ShiftKeyMask).rawValue != 0 {
             resultString += "⇧+"
         }
         
-        if (modifierFlags & NSEventModifierFlags.FunctionKeyMask).toRaw() != 0 {
+        if (modifierFlags & NSEventModifierFlags.FunctionKeyMask).rawValue != 0 {
             resultString += "fn+"
         }
         
