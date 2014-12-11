@@ -49,14 +49,14 @@ class CroppingNSView: NSView {
         super.drawRect(dirtyRect)
     }
     
-    override func mouseDown(theEvent: NSEvent!) {
+    override func mouseDown(theEvent: NSEvent) {
         if canDrag!  == true {
             clickedPoint = convertPoint(theEvent.locationInWindow, fromView: nil)
             self.layer!.addSublayer(shapeLayer!)
         }
     }
     
-    override func mouseUp(theEvent: NSEvent!) {
+    override func mouseUp(theEvent: NSEvent) {
         
         canDrag = false
         
@@ -80,7 +80,7 @@ class CroppingNSView: NSView {
         }
     }
     
-    override func mouseDragged(theEvent: NSEvent!) {
+    override func mouseDragged(theEvent: NSEvent) {
         let point = convertPoint(theEvent.locationInWindow, fromView: nil)
         
         var path = CGPathCreateMutable()

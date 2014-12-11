@@ -23,7 +23,7 @@ class ConfirmAnonymousUploadPanelController: NSWindowController, NSWindowDelegat
         NSBundle.mainBundle().loadNibNamed("ConfirmAnonymousUploadPanel", owner: self, topLevelObjects: nil)
     }
 
-    required init(coder: NSCoder!) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

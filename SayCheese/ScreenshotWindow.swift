@@ -26,19 +26,19 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
         window.releasedWhenClosed = false
     }
 
-    required init(coder: NSCoder!) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
     override func showWindow(sender: AnyObject!) {
-        window.makeKeyAndOrderFront(self)
+        window!.makeKeyAndOrderFront(self)
         // Set level to screensaver level
-        window.level = 1000
+        window!.level = 1000
         
         // Set image cropping view as the contentView
-        imageView = CroppingNSView(frame: window.frame)
+        imageView = CroppingNSView(frame: window!.frame)
         imageView!.screenshotDelegate = self
-        window.contentView = imageView!
+        window!.contentView = imageView!
     }
     
     func paintImage(image: NSImage, withSize size: NSSize) {
@@ -50,10 +50,10 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
         // Add SelectActionViewController to the middle-bottom of the screen
         selectActionView = SelectActionViewController()
         selectActionView!.screenshotDelegate = self
-        let newFrame = NSRectFromCGRect(CGRectMake(window.frame.size.width/2 - selectActionView!.view.frame.width/2,
+        let newFrame = NSRectFromCGRect(CGRectMake(window!.frame.size.width/2 - selectActionView!.view.frame.width/2,
             60, selectActionView!.view.frame.width, selectActionView!.view.frame.height))
         selectActionView!.view.frame = newFrame
-        (window.contentView as NSView).addSubview(selectActionView!.view)
+        (window!.contentView as NSView).addSubview(selectActionView!.view)
         
         // Keep a reference to the selected image so it can be saved or uploaded later
         selectedImage = image
@@ -84,7 +84,7 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
         extensionLabel.alignment = NSTextAlignment.RightTextAlignment
         
         // Add a NSPopUpMenu with the available extensions
-        pullDownView.addItemsWithTitles(savePanel!.allowedFileTypes)
+        pullDownView.addItemsWithTitles(savePanel!.allowedFileTypes!)
         pullDownView.action = "dropMenuChange:"
         pullDownView.target = self
         fileFormatView.addSubview(pullDownView)
@@ -94,7 +94,7 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
         savePanel!.accessoryView = fileFormatView
         
         // Send window back so we can see the modal NSSavePanel
-        window.level = 2
+        window!.level = 2
         
         // Launch save dialog
         let saveResult = savePanel!.runModal()
@@ -109,7 +109,7 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
             // Search file type according to the previous NSPopUpMenu selection
             var fileType: NSBitmapImageFileType = .NSPNGFileType
             
-            switch savePanel!.allowedFileTypes[0] as String {
+            switch savePanel!.allowedFileTypes![0] as String {
             case "png":
                 fileType = NSBitmapImageFileType.NSPNGFileType
             case "jpg":
@@ -118,16 +118,18 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
                 fileType = .NSPNGFileType;
             }
             
+            var temp: [NSObject: AnyObject] = [NSObject: AnyObject]()
+            
             // Convert bitmap to data
-            let data = bitmapRepresentation.representationUsingType(fileType, properties: nil)
+            let data: NSData? = bitmapRepresentation!.representationUsingType(fileType, properties: temp) as NSData?
             
             // Save data to selected file
-            data.writeToFile(savePanel!.URL.path!, atomically: false)
+            data!.writeToFile(savePanel!.URL!.path!, atomically: false)
         }
     }
     
     func dropMenuChange(sender: NSPopUpButton) {
-        let extensions: [String] = [sender.selectedItem.title]
+        let extensions: [String] = [sender.selectedItem!.title]
         savePanel!.allowedFileTypes = extensions
     }
     
@@ -156,8 +158,8 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
             } else {
                 // Else, ask
                 confirmAnonymous = ConfirmAnonymousUploadPanelController()
-                window.level = 2
-                let result = NSApp.runModalForWindow(confirmAnonymous!.window)
+                window!.level = 2
+                let result = NSApp.runModalForWindow(confirmAnonymous!.window!)
                 
                 if result == NSOKButton {
                     imgurClient!.uploadImage(selectedImage!)
