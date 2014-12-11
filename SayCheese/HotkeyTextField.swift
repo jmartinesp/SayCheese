@@ -20,7 +20,7 @@ class HotkeyTextField: NSTextField {
     
     var firstOpening = true
     
-    required init(coder: NSCoder!) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
@@ -49,7 +49,7 @@ class HotkeyTextField: NSTextField {
         return ok
     }
     
-    override func textShouldBeginEditing(textObject: NSText!) -> Bool {
+    override func textShouldBeginEditing(textObject: NSText) -> Bool {
         return false
     }
     
@@ -100,7 +100,7 @@ class HotkeyTextField: NSTextField {
                 stringValue = resultString
                 canEdit = false
                 window!.endEditingFor(self)
-                NSEvent.removeMonitor(monitor)
+                NSEvent.removeMonitor(monitor!)
                 
                 if (hotKeysDelegate? != nil) {
                     let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC));

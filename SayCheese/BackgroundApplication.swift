@@ -39,11 +39,11 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate, UploadDelegate {
         
         // Add take pic item
         var takePicItem = menu.addItemWithTitle("Take screenshot", action: "takePicture:", keyEquivalent:"<")
-        takePicItem.keyEquivalentModifierMask = (Int(NSEventModifierFlags.CommandKeyMask.rawValue) | Int(NSEventModifierFlags.ShiftKeyMask.rawValue))
-        takePicItem.target = self
+        takePicItem!.keyEquivalentModifierMask = (Int(NSEventModifierFlags.CommandKeyMask.rawValue) | Int(NSEventModifierFlags.ShiftKeyMask.rawValue))
+        takePicItem!.target = self
         
         var settingsItem = menu.addItemWithTitle("Settings", action: "openSettings:", keyEquivalent:"")
-        settingsItem.target = self
+        settingsItem!.target = self
         
         deleteLastImageItem = menu.addItemWithTitle("Delete last image", action: "deleteLastImage", keyEquivalent: "")
         deleteLastImageItem!.enabled = false
@@ -51,7 +51,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate, UploadDelegate {
         
         // Add quit app item
         var quitAppItem = menu.addItemWithTitle("Quit", action: "quitApp:", keyEquivalent:"")
-        quitAppItem.target = self
+        quitAppItem!.target = self
         
         // Load saved keyCode and flags
         _loadDefaults(nil)
@@ -215,7 +215,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate, UploadDelegate {
         
         let windowSize = NSSizeFromCGSize(CGSize(width: NSScreen.mainScreen()!.frame.size.width, height: NSScreen.mainScreen()!.frame.size.height))
         
-        self.screenshotWindow!.paintImage(imageFromClipboard, withSize: windowSize)
+        self.screenshotWindow!.paintImage(imageFromClipboard!, withSize: windowSize)
     }
 
     

@@ -122,9 +122,9 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
             let formatter = NSDateFormatter()
             formatter.dateFormat = "dd-MM-yyyy hh:mm:ss"
             var imageData = image.TIFFRepresentation;
-            let imageRepresentation = NSBitmapImageRep(data: imageData);
+            let imageRepresentation = NSBitmapImageRep(data: imageData!);
             let imageProps = [ NSImageCompressionFactor: 1.0 ];
-            imageData = imageRepresentation.representationUsingType(NSBitmapImageFileType.NSJPEGFileType, properties: imageProps);
+            imageData = imageRepresentation!.representationUsingType(NSBitmapImageFileType.NSJPEGFileType, properties: imageProps);
             IMGImageRequest.uploadImageWithData(imageData, title: "Screenshot - \(formatter.stringFromDate(date))", success: imageUploadedCallback, progress: nil, failure: nil)
         }
         
@@ -232,8 +232,11 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
         let date = NSDate()
         let formatter = NSDateFormatter()
         formatter.dateFormat = "dd-MM-yyyy hh:mm:ss"
-        let representation = NSBitmapImageRep(data: image.TIFFRepresentation)
-        let data = representation.representationUsingType(NSBitmapImageFileType.NSJPEGFileType, properties: nil)
+        let representation = NSBitmapImageRep(data: image.TIFFRepresentation!)
+        
+        var temp = [NSObject: AnyObject]()
+        
+        let data = representation!.representationUsingType(NSBitmapImageFileType.NSJPEGFileType, properties: temp)
         let title = "Screenshot - \(formatter.stringFromDate(date))"
         
         let operationManager = AFHTTPRequestOperationManager()
@@ -273,7 +276,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
 
         println("URL: \(urlTemp)")
         
-        NSWorkspace.sharedWorkspace().openURL(url)
+        NSWorkspace.sharedWorkspace().openURL(url!)
     }
     
     func signOut(){

@@ -36,7 +36,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="General" identifier="1" id="JHq-L5-emb">
-                                <view key="view" id="89U-ge-wZA">
+                                <view key="view" ambiguous="YES" id="89U-ge-wZA">
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xuc-O9-Axg">
@@ -129,7 +129,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="About" identifier="" id="FHQ-Kh-JgS">
-                                <view key="view" ambiguous="YES" id="mUD-RK-2rg">
+                                <view key="view" id="mUD-RK-2rg">
                                     <rect key="frame" x="10" y="33" width="434" height="123"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
