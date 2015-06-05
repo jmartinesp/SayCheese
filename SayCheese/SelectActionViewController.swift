@@ -16,7 +16,7 @@ class SelectActionViewController: NSViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    convenience override init() {
+    convenience init() {
         self.init(nibName: "SelectActionView", bundle: NSBundle.mainBundle())
     }
     
@@ -28,19 +28,19 @@ class SelectActionViewController: NSViewController {
     
     
     @IBAction func saveImage(sender: AnyObject?) {
-        if screenshotDelegate? != nil {
+        if screenshotDelegate != nil {
             screenshotDelegate!.saveImage()
         }
     }
     
     @IBAction func uploadImage(sender: AnyObject?) {
-        if screenshotDelegate? != nil {
+        if screenshotDelegate != nil {
             screenshotDelegate!.uploadImage()
         }
     }
     
     @IBAction func quit(sender: AnyObject?) {
-        if screenshotDelegate? != nil {
+        if screenshotDelegate != nil {
             screenshotDelegate!.closeWindow()
         }
     }

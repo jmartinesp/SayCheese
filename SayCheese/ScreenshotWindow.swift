@@ -53,7 +53,7 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
         let newFrame = NSRectFromCGRect(CGRectMake(window!.frame.size.width/2 - selectActionView!.view.frame.width/2,
             60, selectActionView!.view.frame.width, selectActionView!.view.frame.height))
         selectActionView!.view.frame = newFrame
-        (window!.contentView as NSView).addSubview(selectActionView!.view)
+        (window!.contentView as! NSView).addSubview(selectActionView!.view)
         
         // Keep a reference to the selected image so it can be saved or uploaded later
         selectedImage = image
@@ -109,7 +109,7 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
             // Search file type according to the previous NSPopUpMenu selection
             var fileType: NSBitmapImageFileType = .NSPNGFileType
             
-            switch savePanel!.allowedFileTypes![0] as String {
+            switch savePanel!.allowedFileTypes![0] as! String {
             case "png":
                 fileType = NSBitmapImageFileType.NSPNGFileType
             case "jpg":
@@ -133,7 +133,7 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
         savePanel!.allowedFileTypes = extensions
     }
     
-    func windowWillClose(notification: NSNotification!) {
+    func windowWillClose(notification: NSNotification) {
         // Free some resources
         backgroundImage = nil
         imageView!.releaseImage()
@@ -170,7 +170,7 @@ class ScreenshotWindow: NSWindowController, ScreenshotDelegate, NSWindowDelegate
     }
     
     func closeWindow() {
-        if selectActionView? != nil {
+        if selectActionView != nil {
             selectActionView!.view.removeFromSuperview()
         }
         close()

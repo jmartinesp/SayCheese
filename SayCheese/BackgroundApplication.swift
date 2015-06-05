@@ -105,7 +105,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate, UploadDelegate {
     
     
     func openSettings(sender: AnyObject?) {
-        if settingsController? == nil {
+        if settingsController == nil {
             settingsController = PreferencesWindowController(windowNibName: "PreferencesWindowController")
             settingsController!.imgurClient = imgurClient
             imgurClient!.authenticationDoneDelegate = settingsController
@@ -121,7 +121,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate, UploadDelegate {
     func _loadDefaults(settingsController: PreferencesWindowController?) {
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        if (defaults.objectForKey("keyCode")? != nil && defaults.objectForKey("flags")? != nil) {
+        if (defaults.objectForKey("keyCode") != nil && defaults.objectForKey("flags") != nil) {
             var intKeyCode = defaults.integerForKey("keyCode")
             var flagsData = defaults.integerForKey("flags")
             
@@ -134,7 +134,7 @@ class BackgroundApplication: NSObject, ChangeHotKeysDelegate, UploadDelegate {
             flags = NSEventModifierFlags(1179914)
         }
         
-        if settingsController? != nil {
+        if settingsController != nil {
             settingsController!.hotKeyTextField.setTextWithKeyCode(Int(keyCode!), andFlags: flags!.rawValue, eventType: nil)
         }
 

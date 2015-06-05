@@ -93,7 +93,7 @@ class HotkeyTextField: NSTextField {
             resultString += "fn+"
         }
         
-        if (eventType? != nil) {
+        if (eventType != nil) {
             if eventType == NSEventType.KeyDown {
                 let char = HotKeyUtilsWrapper.getStringFromKeyCode(UInt16(keyCode))[0]
                 resultString += char
@@ -102,7 +102,7 @@ class HotkeyTextField: NSTextField {
                 window!.endEditingFor(self)
                 NSEvent.removeMonitor(monitor!)
                 
-                if (hotKeysDelegate? != nil) {
+                if (hotKeysDelegate != nil) {
                     let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC));
                     dispatch_after(dispatchTime, dispatch_get_main_queue(), {
                             self.hotKeysDelegate!.changeHotKeysToKeyCode(UInt16(keyCode), flags: flags)

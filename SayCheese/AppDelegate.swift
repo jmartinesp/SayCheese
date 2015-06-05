@@ -12,11 +12,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var backgroundApplication: BackgroundApplication?
 
-    func applicationDidFinishLaunching(aNotification: NSNotification?) {
+    func applicationDidFinishLaunching(aNotification: NSNotification) {
         backgroundApplication = BackgroundApplication()
     }
     
-    func applicationWillTerminate(aNotification: NSNotification?) {
+    func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
     }
 

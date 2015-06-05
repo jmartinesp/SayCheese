@@ -49,7 +49,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     func authenticate(withToken: Bool) {
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.objectForKey("imgur_token") != nil {
-            let code = defaults.objectForKey("imgur_token") as String
+            let code = defaults.objectForKey("imgur_token") as! String
             NSLog("Requests: \(imgurSession!.creditsClientRemaining)")
             imgurSession!.authenticateWithRefreshToken(code)
             NSLog("Autenticando con token: \(code)")
@@ -60,7 +60,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     
     func imgurSessionNeedsExternalWebview(url: NSURL, completion: () -> Void) {
         NSWorkspace.sharedWorkspace().openURL(url)
-        if (authenticationDoneDelegate? != nil) {
+        if (authenticationDoneDelegate != nil) {
             authenticationDoneDelegate!.activatePinButton()
         }
     }
@@ -76,7 +76,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
         if state == IMGAuthState.Authenticated {
             defaults.setObject(imgurSession!.refreshToken as NSString, forKey: "imgur_token")
             defaults.synchronize()
-            if (authenticationDoneDelegate? != nil) {
+            if (authenticationDoneDelegate != nil) {
                 authenticationDoneDelegate!.authenticationInImgurSuccessful()
             }
             isLoggedIn = true
@@ -88,7 +88,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     
     func imgurSessionTokenRefreshed() {
         // If we need to upload anything, do it
-        if (doIfAuthenticated? != nil) {
+        if (doIfAuthenticated != nil) {
             doIfAuthenticated!()
             doIfAuthenticated = nil
         }
@@ -98,15 +98,32 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
     func isAccessTokenValid() -> Bool! {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "dd-MM-yyyy hh:mm:ss"
-        if imgurSession!.accessTokenExpiry.compare(NSDate()) == NSComparisonResult.OrderedDescending {
-            // Token valid
-            isLoggedIn = true
-            return true
+        
+        if imgurSession != nil {
+            if imgurSession!.accessTokenExpiry != nil {
+                if imgurSession!.accessTokenExpiry!.compare(NSDate()) == NSComparisonResult.OrderedDescending {
+                    // Token valid
+                    isLoggedIn = true
+                    
+                    println("LoggedIn")
+                    
+                    return true
+                } else {
+                    // Token expired
+                    isLoggedIn = false
+                    
+                    println("Not logged in")
+                    
+                    return false
+                }
+
+            } else {
+                println("AccesTokenExpiry was nil")
+            }
         } else {
-            // Token expired
-            isLoggedIn = false
-            return false
+            println("imgursession was nil")
         }
+        return false
     }
     
     func uploadImage(let image: NSImage) {
@@ -128,7 +145,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
             IMGImageRequest.uploadImageWithData(imageData, title: "Screenshot - \(formatter.stringFromDate(date))", success: imageUploadedCallback, progress: nil, failure: nil)
         }
         
-        if hasAccount() == false {
+        if !hasAccount() {
             wasScreenshotUploadedWithAccount = false
             anonymouslyUploadImage(image)
         } else {
@@ -136,7 +153,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
             if isAccessTokenValid() == true {
                 uploadIfOk()
             } else {
-                doIfAuthenticated = uploadIfOk
+                doIfAuthenticated = { (uploadIfOk)($0) }
                 imgurSession!.authenticate()
             }
             
@@ -166,9 +183,19 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
         })
     }
     
+    func notifyImageNotUploaded(errorCode: Int){
+        dispatch_async(dispatch_get_main_queue(), {
+            let notification = NSUserNotification()
+            notification.title = "Error while uploading image"
+            notification.informativeText = "Error code: \(errorCode)"
+            let center = NSUserNotificationCenter.defaultUserNotificationCenter()
+            center.deliverNotification(notification)
+        })
+    }
+    
     func deleteLastImage(){
         
-        if deleteParam? != nil {
+        if deleteParam != nil {
            
             let operationManager = AFHTTPRequestOperationManager()
             
@@ -189,7 +216,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
                 
                 success: {(operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
                     
-                    self.notifyImageDeleted((response as NSDictionary).valueForKey("success") as Bool)
+                    self.notifyImageDeleted((response as! NSDictionary).valueForKey("success") as! Bool)
                     
                 }, failure: {(operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                     
@@ -219,7 +246,7 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
         center.delegate = self
         center.deliverNotification(notification)
         
-        if uploadDelegate? != nil {
+        if uploadDelegate != nil {
             uploadDelegate!.imageDeleted()
         }
         
@@ -249,30 +276,35 @@ class ImgurClient: NSObject, IMGSessionDelegate, NSUserNotificationCenterDelegat
         
         }, success: {(operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
         
-            let dictionary = (response as NSDictionary).valueForKey("data") as NSDictionary
-            let deleteParam: String? = dictionary.valueForKey("deletehash") as String?
+            let dictionary = (response as! NSDictionary).valueForKey("data") as! NSDictionary
+            let deleteParam: String? = dictionary.valueForKey("deletehash") as! String?
             
             println("DELETEPARAM: \(deleteParam!)")
             
-            self.notifyImageUploaded(dictionary.valueForKey("link") as String, param: deleteParam!)
+            self.notifyImageUploaded(dictionary.valueForKey("link") as! String, param: deleteParam!)
     
         }, failure: {(operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-        
+            self.uploadDelegate?.uploadFinished()
+            
+            var httpCode = error.code
+            
+            self.notifyImageNotUploaded(httpCode)
+
             NSLog(error.description)
         
         })
     }
 
-    func userNotificationCenter(center: NSUserNotificationCenter!, shouldPresentNotification notification: NSUserNotification!) -> Bool {
+    func userNotificationCenter(center: NSUserNotificationCenter, shouldPresentNotification notification: NSUserNotification) -> Bool {
         return true
     }
     
-    func userNotificationCenter(center: NSUserNotificationCenter!, didActivateNotification notification: NSUserNotification!) {
+    func userNotificationCenter(center: NSUserNotificationCenter, didActivateNotification notification: NSUserNotification) {
         //let url = NSURL.URLWithString(notification.userInfo.indexForKey("url") as String))
         
-        let url = NSURL(string: (notification.valueForKey("url") as String))
+        let url = NSURL(string: (notification.valueForKey("url") as! String))
         
-        let urlTemp = notification.valueForKey("url") as String
+        let urlTemp = notification.valueForKey("url") as! String
 
         println("URL: \(urlTemp)")
         

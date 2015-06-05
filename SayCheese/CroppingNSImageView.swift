@@ -60,7 +60,7 @@ class CroppingNSView: NSView {
         
         canDrag = false
         
-        if (screenshotDelegate? != nil) {
+        if (screenshotDelegate != nil) {
             
             let point = convertPoint(theEvent.locationInWindow, fromView: nil)
             
@@ -70,7 +70,7 @@ class CroppingNSView: NSView {
                 fabs(point.y - clickedPoint!.y)
             )
             
-            if (image? != nil) {
+            if (image != nil) {
                 let croppedImage = NSImage(size: NSSizeFromCGSize(CGSize(width: selectedRect.width, height: selectedRect.height)))
                 croppedImage.lockFocus()
                 image!.drawAtPoint(NSZeroPoint, fromRect: selectedRect, operation: .CompositeCopy, fraction: 1.0)
@@ -84,7 +84,7 @@ class CroppingNSView: NSView {
         let point = convertPoint(theEvent.locationInWindow, fromView: nil)
         
         var path = CGPathCreateMutable()
-        if let startPoint = clickedPoint? {
+        if let startPoint = clickedPoint {
             CGPathMoveToPoint(path, nil, startPoint.x, startPoint.y)
             CGPathAddLineToPoint(path, nil, startPoint.x, point.y)
             CGPathAddLineToPoint(path, nil, point.x, point.y)
