@@ -20,14 +20,10 @@ class PreferencesWindowController: NSWindowController, ReceivedImgurAuthenticati
     @IBOutlet var launchLoginCheckBox: NSButton!
     @IBOutlet var versionLabel: NSTextField!
 
-    override init() {
-        super.init()
-    }
-    
     override init(window: NSWindow?)  {
         super.init(window: window)
         
-        if self.window? != nil {
+        if self.window != nil {
             self.window!.releasedWhenClosed = false
             window!.level = 20
 
@@ -44,7 +40,7 @@ class PreferencesWindowController: NSWindowController, ReceivedImgurAuthenticati
     override func showWindow(sender: AnyObject!) {
         
         super.showWindow(sender)
-        if self.window? != nil {
+        if self.window != nil {
             NSBundle.mainBundle().loadNibNamed("PreferencesWindowController", owner: self, topLevelObjects: nil)
         }
         
@@ -67,17 +63,17 @@ class PreferencesWindowController: NSWindowController, ReceivedImgurAuthenticati
         
         let startUpUtil = StartUpUtils()
         if startUpUtil.isAppALoginItem() {
-            if launchLoginCheckBox? != nil {
+            if launchLoginCheckBox != nil {
                 launchLoginCheckBox!.state = NSOnState
             }
         } else {
-            if launchLoginCheckBox? != nil {
+            if launchLoginCheckBox != nil {
                 launchLoginCheckBox!.state = NSOffState
             }
         }
         
         if versionLabel != nil {
-            let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as String
+            let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
             versionLabel!.stringValue = "SayCheese \(version)"
         }
         

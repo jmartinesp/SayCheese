@@ -14,10 +14,6 @@ class ConfirmAnonymousUploadPanelController: NSWindowController, NSWindowDelegat
     
     var selectActionView: SelectActionViewController?
     
-    override init()  {
-        super.init()
-    }
-    
     override init(window: NSWindow!) {
         super.init(window: window)
         NSBundle.mainBundle().loadNibNamed("ConfirmAnonymousUploadPanel", owner: self, topLevelObjects: nil)
